@@ -1,0 +1,20 @@
+from sentence_transformers import SentenceTransformer
+import pandas as pd
+
+# Load the CSV data into a Pandas DataFrame
+df = pd.read_csv("Data/Extracted_Data/master.csv")  # Please update the path
+
+# Initialize the Sentence Transformer model
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# Vectorize the 'summarized' column
+vectorized_summarized = model.encode(df['summarized_text'].astype(str).tolist())
+
+# Convert to a list of lists for DataFrame compatibility
+vectorized_summarized = vectorized_summarized.tolist()
+
+# Add the vectors to the DataFrame
+df['Vector_Summarized'] = vectorized_summarized
+
+# Save the updated DataFrame back to a CSV file
+df.to_csv("Data/Extracted_Data/vectorized_summarized_text.csv", index=False)  # Please update the path

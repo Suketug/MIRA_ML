@@ -1,0 +1,9 @@
+import requests
+from bs4 import BeautifulSoup
+
+# Make a request to the website
+response = requests.get("https://thesource.uwm.com/Search-Guidelines/UWM-Documents/Secondary/Conventional-Fixed-Matrix")
+soup = BeautifulSoup(response.text, 'html.parser')
+print(response.status_code)  # Should print 200 if successful
+print(soup.prettify())
+
